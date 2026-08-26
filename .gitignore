@@ -1,0 +1,10 @@
+.vs/
+bin/
+obj/
+packages/
+*.user
+*.suo
+*.docstates
+*.dbmdl
+*.pdb
+*.cache

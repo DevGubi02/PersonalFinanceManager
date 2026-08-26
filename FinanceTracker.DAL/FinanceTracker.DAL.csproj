@@ -1,0 +1,21 @@
+<!-- This is the DATA ACCESS LAYER (DAL) — a class library that talks to the database. -->
+<!-- It calls stored procedures and returns model objects. It references DataModels. -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>   <!-- Build for .NET 10. -->
+    <Nullable>enable</Nullable>                  <!-- Turn on null-safety checks. -->
+    <ImplicitUsings>enable</ImplicitUsings>      <!-- Auto-import common namespaces. -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Entity Framework Core for SQL Server — we use it only to manage the DB connection. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference the DataModels project so the DAL can use User, Category, TransactionDto, etc. -->
+    <ProjectReference Include="..\FinanceTracker.DataModels\FinanceTracker.DataModels.csproj" />
+  </ItemGroup>
+
+</Project>

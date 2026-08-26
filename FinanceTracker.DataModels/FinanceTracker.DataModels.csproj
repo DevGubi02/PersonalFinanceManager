@@ -1,0 +1,11 @@
+<!-- This is a CLASS LIBRARY project (no web server) that holds our shared data classes. -->
+<!-- Every other project references this one so they all use the same model definitions. -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>   <!-- Build for .NET 10. -->
+    <Nullable>enable</Nullable>                  <!-- Turn on null-safety checks. -->
+    <ImplicitUsings>enable</ImplicitUsings>      <!-- Auto-import common namespaces. -->
+  </PropertyGroup>
+
+</Project>

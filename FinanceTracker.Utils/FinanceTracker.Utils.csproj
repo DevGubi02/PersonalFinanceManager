@@ -1,0 +1,19 @@
+<!-- This is a CLASS LIBRARY project holding reusable helpers: password hashing and JWT tokens. -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>   <!-- Build for .NET 10. -->
+    <Nullable>enable</Nullable>                  <!-- Turn on null-safety checks. -->
+    <ImplicitUsings>enable</ImplicitUsings>      <!-- Auto-import common namespaces. -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- BCrypt.Net-Next: securely hashes passwords with a salt. -->
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <!-- System.IdentityModel.Tokens.Jwt: lets us create and sign JWT login tokens. -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
+    <!-- Configuration abstractions: lets the TokenService read the JWT secret from settings. -->
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>
