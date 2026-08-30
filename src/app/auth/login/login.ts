@@ -22,17 +22,25 @@ export class Login {                                  // The login page componen
 
   // Called when the user submits the login form.
   onSubmit(): void {                                  // The submit handler.
+    const trimmedEmail = this.email.trim();
+    const trimmedPassword = this.secretValue.trim();
+
+    if (!trimmedEmail || !trimmedPassword) {
+      this.errorMessage = 'Please enter both email and password.';
+      return;
+    }
+
     this.errorMessage = '';   // Clear any old error.
     this.loading = true;      // Show that we are working.
 
-    this.auth.login(this.email, this.secretValue).subscribe({ // Ask the auth service to log in.
+    this.auth.login(trimmedEmail, trimmedPassword).subscribe({ // Ask the auth service to log in.
       next: () => {                                    // Runs when login succeeds.
         this.loading = false;                          // Done working.
         this.router.navigate(['dashboard']);           // Go to the dashboard.
       },
-      error: () => {                                   // Runs when login fails.
+      error: (err: Error) => {                         // Runs when login fails.
         this.loading = false;                          // Done working.
-        this.errorMessage = 'Invalid email or password.'; // Show a friendly error.
+        this.errorMessage = err.message || 'Invalid email or password.';
       }
     });
   }
