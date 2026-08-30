@@ -1,0 +1,48 @@
+<!-- The shared top navigation bar. -->
+<app-nav></app-nav>
+
+<div class="page">
+  <!-- <h2 class="page-title">Budgets</h2> -->
+
+  <!-- Form to add a new monthly budget. -->
+  <form class="add-form" (ngSubmit)="add()">
+    <!-- Category dropdown. -->
+    <select name="category" [(ngModel)]="newItem.categoryId" required>
+      <option [ngValue]="0" disabled>Choose category</option>
+      <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }}</option>
+    </select>
+
+    <!-- The monthly limit amount. -->
+    <input name="limit" type="number" min="0" step="0.01"
+           [(ngModel)]="newItem.monthlyLimit" placeholder="Monthly limit" required />
+
+    <!-- Month (1-12). -->
+    <input name="month" type="number" min="1" max="12"
+           [(ngModel)]="newItem.month" placeholder="Month" required />
+
+    <!-- Year. -->
+    <input name="year" type="number" min="2000" max="2100"
+           [(ngModel)]="newItem.year" placeholder="Year" required />
+
+    <!-- Add button, disabled while saving. -->
+    <button type="submit" class="add-btn" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Add' }}</button>
+  </form>
+
+  <!-- Loading and empty states. -->
+  <p *ngIf="loading()" class="muted">Loading budgets...</p>
+  <p *ngIf="!loading() && items().length === 0" class="muted">No budgets yet. Set one above.</p>
+
+  <!-- The list of budgets. -->
+  <div class="list" *ngIf="!loading()">
+    <div class="budget-row" *ngFor="let b of items()">
+      <!-- The category name this budget is for. -->
+      <span class="b-cat">{{ categoryName(b.categoryId) }}</span>
+      <!-- The month/year. -->
+      <span class="b-period">{{ b.month }}/{{ b.year }}</span>
+      <!-- The limit amount. -->
+      <span class="b-limit">{{ b.monthlyLimit | currency:'INR':'symbol':'1.2-2' }}</span>
+      <!-- Delete button. -->
+      <button class="del-btn" (click)="remove(b.id)">✕</button>
+    </div>
+  </div>
+</div>

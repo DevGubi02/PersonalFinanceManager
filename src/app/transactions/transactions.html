@@ -1,0 +1,69 @@
+<!-- The shared top navigation bar. -->
+<app-nav></app-nav>
+
+<div class="page">
+  <!-- <h2 class="page-title">Transactions</h2> -->
+
+  <!-- The "add new transaction" form. (ngSubmit) runs add(). -->
+  <form class="add-form" (ngSubmit)="add()">
+    <!-- Category dropdown, filled from the categories list. -->
+    <select name="category" [(ngModel)]="newItem.categoryId" required>
+      <option [ngValue]="0" disabled>Choose category</option>
+      <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }} ({{ c.type }})</option>
+    </select>
+
+    <!-- Type dropdown: Income or Expense. -->
+    <select name="type" [(ngModel)]="newItem.type">
+      <option value="Expense">Expense</option>
+      <option value="Income">Income</option>
+    </select>
+
+    <!-- Amount input (numbers only). -->
+    <input name="amount" type="number" min="0" step="0.01"
+           [(ngModel)]="newItem.amount" placeholder="Amount" required />
+
+    <!-- Date input. -->
+    <input name="date" type="date" [(ngModel)]="newItem.date" required />
+
+    <!-- Optional description. -->
+    <input name="desc" type="text" [(ngModel)]="newItem.description" placeholder="Note (optional)" />
+
+    <!-- Submit button, disabled while saving. -->
+    <button type="submit" class="add-btn" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Add' }}
+    </button>
+  </form>
+
+  <!-- A button to export the list to CSV. -->
+  <div class="toolbar">
+    <button class="export-btn" (click)="exportCsv()" [disabled]="items().length === 0">
+      ⬇ Export CSV
+    </button>
+  </div>
+
+  <!-- Loading and empty states. -->
+  <p *ngIf="loading()" class="muted">Loading transactions...</p>
+  <p *ngIf="!loading() && items().length === 0" class="muted">No transactions yet. Add your first one above.</p>
+
+  <!-- The transactions table (only shown when there is data). -->
+  <table class="tx-table" *ngIf="!loading() && items().length > 0">
+    <thead>
+      <tr>
+        <th>Date</th><th>Type</th><th>Category</th><th>Amount</th><th>Note</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- One row per transaction. -->
+      <tr *ngFor="let t of items()">
+        <td data-label="Date">{{ t.date | date:'mediumDate' }}</td>
+        <!-- Color the type text green for income, red for expense. -->
+        <td data-label="Type" [class.income]="t.type === 'Income'" [class.expense]="t.type === 'Expense'">{{ t.type }}</td>
+        <td data-label="Category">{{ t.categoryName }}</td>
+        <td data-label="Amount">{{ t.amount | currency:'INR':'symbol':'1.2-2' }}</td>
+        <td data-label="Note">{{ t.description }}</td>
+        <!-- A delete button for each row. -->
+        <td data-label="Action"><button class="del-btn" (click)="remove(t.id)">✕</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

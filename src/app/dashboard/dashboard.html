@@ -1,0 +1,55 @@
+<!-- The shared top navigation bar. -->
+<app-nav></app-nav>
+
+<!-- The main page content, given some padding. -->
+<div class="page">
+  <!-- Show a loading message while data is being fetched. -->
+  <p *ngIf="loadingValue()" class="muted">Loading your summary...</p>
+
+  <!-- Once loaded, show the summary. -->
+  <div *ngIf="!loadingValue() && summaryValue()">
+
+    <!-- Three summary cards: income, expense, and balance. -->
+    <div class="cards">
+      <!-- Income card (green). -->
+      <div class="card income">
+        <span class="card-label">Total Income</span>
+        <span class="card-value">{{ summaryValue()?.totalIncome | currency:'INR':'symbol':'1.2-2' }}</span>
+      </div>
+      <!-- Expense card (red). -->
+      <div class="card expense">
+        <span class="card-label">Total Expense</span>
+        <span class="card-value">{{ summaryValue()?.totalExpense | currency:'INR':'symbol':'1.2-2' }}</span>
+      </div>
+      <!-- Balance card (blue). -->
+      <div class="card balance">
+        <span class="card-label">Balance</span>
+        <span class="card-value">{{ summaryValue()?.balance | currency:'INR':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <!-- A simple bar chart showing spending/earning per category. -->
+    <h3 class="section-title">By Category</h3>
+
+    <!-- If there is no data yet, tell the user. -->
+    <p *ngIf="(summaryValue()?.byCategory?.length ?? 0) === 0" class="muted">
+      No transactions yet. Add some on the Transactions page.
+    </p>
+
+    <!-- One bar row per category. -->
+    <div class="bar-row" *ngFor="let item of summaryValue()?.byCategory">
+      <!-- The category name and its total. -->
+      <div class="bar-head">
+        <span>{{ item.categoryName }} <small class="tag">{{ item.type }}</small></span>
+        <span>{{ item.total | currency:'INR':'symbol':'1.2-2' }}</span>
+      </div>
+      <!-- The bar track (grey) and the colored fill sized by barWidth(). -->
+      <div class="bar-track">
+        <div class="bar-fill"
+             [class.income]="item.type === 'Income'"
+             [class.expense]="item.type === 'Expense'"
+             [style.width.%]="barWidth(item)"></div>
+      </div>
+    </div>
+  </div>
+</div>

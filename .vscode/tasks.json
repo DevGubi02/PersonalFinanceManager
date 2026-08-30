@@ -3,22 +3,26 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "npm",
-      "script": "start",
+      "label": "serve-angular",
+      "type": "shell",
+      "command": "npm start -- --port 4201",
       "isBackground": true,
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "Changes detected"
+      "problemMatcher": [
+        {
+          "owner": "angular",
+          "pattern": {
+            "regexp": ".*",
+            "file": 1,
+            "location": 1,
+            "message": 0
           },
-          "endsPattern": {
-            "regexp": "bundle generation (complete|failed)"
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": "Local:\\s+http://localhost:4201/"
           }
         }
-      }
+      ]
     },
     {
       "type": "npm",

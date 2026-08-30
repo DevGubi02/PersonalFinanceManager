@@ -1,0 +1,74 @@
+/* Page container with padding and a light background. */
+.page { padding: 24px; max-width: 900px; margin: 0 auto; }
+
+/* Grey helper text (loading / empty states). */
+.muted { color: #6b7280; }
+
+/* The row of three summary cards. */
+.cards {
+  display: grid;                                   /* Use a grid layout. */
+  grid-template-columns: repeat(3, 1fr);           /* Three equal columns. */
+  gap: 16px;                                       /* Space between cards. */
+  margin-bottom: 28px;                             /* Space below the row. */
+}
+
+/* A single summary card. */
+.card {
+  border-radius: 12px;                             /* Rounded corners. */
+  padding: 18px;                                   /* Inner spacing. */
+  display: flex;                                   /* Stack label + value vertically. */
+  flex-direction: column;                          /* Vertical direction. */
+  gap: 6px;                                         /* Space between label and value. */
+  color: #fff;  
+  margin-top: 20%;                                   /* White text. */
+}
+
+/* The small label at the top of a card. */
+.card-label { font-size: 13px; opacity: 0.9; }
+
+/* The big number on a card. */
+.card-value { font-size: 22px; font-weight: 700; }
+
+/* Card colors by type. */
+.card.income  { background: #16a34a; }             /* Green for income. */
+.card.expense { background: #dc2626; }             /* Red for expense. */
+.card.balance { background: #2563eb; }             /* Blue for balance. */
+
+/* The "By Category" section heading. */
+.section-title { margin: 0 0 12px; font-size: 18px; }
+
+/* One category bar row. */
+.bar-row { margin-bottom: 14px; }
+
+/* The label + amount line above each bar. */
+.bar-head {
+  display: flex;                                   /* Put name and amount on one line. */
+  justify-content: space-between;                  /* Push them to opposite ends. */
+  font-size: 14px;                                 /* Readable. */
+  margin-bottom: 4px;                              /* Small gap before the bar. */
+  gap: 8px;
+}
+
+/* A small tag showing Income/Expense next to the name. */
+.tag { color: #6b7280; font-size: 11px; }
+
+/* The grey track behind each bar. */
+.bar-track {
+  background: #e5e7eb;                             /* Light grey. */
+  border-radius: 6px;                              /* Rounded. */
+  height: 14px;                                   /* Bar height. */
+  overflow: hidden;                               /* Keep the fill inside the rounded corners. */
+}
+
+/* The colored fill inside the bar. Its width is set inline by the template. */
+.bar-fill { height: 100%; transition: width 0.3s ease; } /* Smoothly animate width changes. */
+.bar-fill.income  { background: #16a34a; }         /* Green fill for income. */
+.bar-fill.expense { background: #dc2626; }         /* Red fill for expense. */
+
+@media (max-width: 720px) {
+  .page { padding: 16px 14px; }
+  .cards { grid-template-columns: 1fr; }
+  .bar-head { flex-wrap: wrap; }
+}
+
+.margin-top-10 { margin-top: 10%; }

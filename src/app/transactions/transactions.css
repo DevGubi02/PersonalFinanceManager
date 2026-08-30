@@ -1,0 +1,130 @@
+/* Page container. */
+.page { padding: 24px; max-width: 1000px; margin: 0 auto; margin-top: 5%; }
+.page-title { margin: 0 0 20px; font-size: 22px; }
+.muted { color: #6b7280; }
+
+/* The add form: lay fields out in a wrapping row. */
+.add-form {
+  display: flex;                          /* Row layout. */
+  flex-wrap: wrap;                        /* Wrap on small screens. */
+  gap: 10px;                              /* Space between fields. */
+  align-items: center;                    /* Align vertically. */
+  margin-bottom: 16px;                    /* Space below. */
+}
+
+/* Inputs and selects in the form share a look. */
+.add-form input, .add-form select {
+  padding: 8px 10px;                      /* Comfortable size. */
+  border: 1px solid #d1d5db;              /* Light grey border. */
+  border-radius: 6px;                     /* Rounded. */
+  font-size: 14px;                        /* Readable. */
+}
+
+/* The green "Add" button. */
+.add-btn {
+  background: #16a34a; color: #fff; border: none;
+  padding: 9px 18px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+.add-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Toolbar above the table (holds the export button). */
+.toolbar { margin-bottom: 12px; }
+
+/* The export button. */
+.export-btn {
+  background: #2563eb; color: #fff; border: none;
+  padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+.export-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* The transactions table. */
+.tx-table {
+  width: 100%;                            /* Full width. */
+  border-collapse: collapse;              /* Merge cell borders. */
+  background: #fff;                       /* White background. */
+  border-radius: 8px;                     /* Rounded (with overflow hidden below). */
+  overflow: hidden;                       /* Keep rounded corners tidy. */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);  /* Subtle shadow. */
+  color: #030303;
+}
+
+/* Table header and cells. */
+.tx-table th, .tx-table td {
+  text-align: left;                       /* Left-align text. */
+  padding: 10px 12px;                     /* Cell spacing. */
+  border-bottom: 1px solid #f0f0f0;       /* Light divider lines. */
+  font-size: 14px;                        /* Readable. */
+}
+
+/* Header row styling. */
+.tx-table th { background: #707577; color: #030303; font-weight: 600; }
+
+/* Green / red coloring for the type column. */
+.income  { color: #16a34a; font-weight: 600; }
+.expense { color: #dc2626; font-weight: 600; }
+
+/* The small delete (✕) button. */
+.del-btn {
+  background: transparent; border: none; color: #dc2626;
+  cursor: pointer; font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .page { padding: 16px 14px; }
+  .page-title { font-size: 20px; }
+
+  .add-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-form input,
+  .add-form select,
+  .add-btn {
+    width: 100%;
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: stretch;
+  }
+
+  .export-btn {
+    width: 100%;
+  }
+
+  .tx-table,
+  .tx-table thead,
+  .tx-table tbody,
+  .tx-table th,
+  .tx-table td,
+  .tx-table tr {
+    display: block;
+  }
+
+  .tx-table thead {
+    display: none;
+  }
+
+  .tx-table tr {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .tx-table td {
+    padding: 6px 0;
+    border-bottom: none;
+  }
+
+  .tx-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 2px;
+  }
+}

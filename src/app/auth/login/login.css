@@ -1,0 +1,87 @@
+/* Center the card in the middle of the screen with a soft background. */
+.auth-wrapper {
+  min-height: 100vh;                     /* Fill the full height of the screen. */
+  display: flex;                         /* Use flexbox to center the card. */
+  align-items: center;                   /* Center vertically. */
+  justify-content: center;               /* Center horizontally. */
+  background: linear-gradient(135deg, #4f46e5, #7c3aed); /* A pleasant purple gradient. */
+  padding: 16px;                         /* Space around the card on small screens. */
+}
+
+/* The white card that holds the form. */
+.auth-card {
+  background: #ffffff;                   /* White background. */
+  border-radius: 16px;                   /* Rounded corners. */
+  padding: 32px;                         /* Inner spacing. */
+  width: 100%;                           /* Take available width... */
+  max-width: 380px;                      /* ...but never wider than 380px. */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2); /* A soft drop shadow. */
+}
+
+/* The big app title. */
+.auth-title {
+  margin: 0 0 4px;                       /* Small gap below. */
+  font-size: 24px;                       /* Large text. */
+  text-align: center;                    /* Centered. */
+}
+
+/* The small grey subtitle under the title. */
+.auth-subtitle {
+  margin: 0 0 24px;                      /* Gap below. */
+  color: #6b7280;                        /* Grey color. */
+  text-align: center;                    /* Centered. */
+  font-size: 14px;                       /* Smaller text. */
+}
+
+/* Labels above each input box. */
+.field-label {
+  display: block;                        /* Put the label on its own line. */
+  font-size: 13px;                       /* Small text. */
+  font-weight: 600;                      /* Semi-bold. */
+  margin: 12px 0 4px;                    /* Space above and below. */
+  color: #374151;                        /* Dark grey. */
+}
+
+/* The input boxes. */
+.field-input {
+  width: 100%;                           /* Full width of the card. */
+  padding: 10px 12px;                    /* Comfortable inner spacing. */
+  border: 1px solid #d1d5db;             /* Light grey border. */
+  border-radius: 8px;                    /* Rounded corners. */
+  font-size: 14px;                       /* Readable text size. */
+  box-sizing: border-box;                /* Include padding in the width. */
+}
+
+/* The main action button. */
+.primary-btn {
+  width: 100%;                           /* Full width. */
+  margin-top: 20px;                      /* Space above. */
+  padding: 12px;                         /* Tall, easy-to-tap button. */
+  background: #4f46e5;                   /* Purple background. */
+  color: #ffffff;                        /* White text. */
+  border: none;                          /* No border. */
+  border-radius: 8px;                    /* Rounded corners. */
+  font-size: 15px;                       /* Slightly larger text. */
+  font-weight: 600;                      /* Semi-bold. */
+  cursor: pointer;                       /* Show a hand cursor on hover. */
+}
+
+/* Dim the button when it is disabled (while loading). */
+.primary-btn:disabled {
+  opacity: 0.6;                          /* Faded look. */
+  cursor: not-allowed;                   /* Show a "blocked" cursor. */
+}
+
+/* Red text for error messages. */
+.error-text {
+  color: #dc2626;                        /* Red. */
+  font-size: 13px;                       /* Small. */
+  margin: 12px 0 0;                      /* Space above. */
+}
+
+/* The footer link area under the form. */
+.auth-footer {
+  margin-top: 20px;                      /* Space above. */
+  text-align: center;                    /* Centered. */
+  font-size: 14px;                       /* Normal size. */
+}

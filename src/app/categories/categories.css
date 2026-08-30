@@ -1,0 +1,74 @@
+/* Page container. */
+.page { padding: 24px; max-width: 640px; margin: 0 auto; margin-top: 5%; }
+.page-title { margin: 0 0 20px; font-size: 22px; }
+.muted { color: #6b7280; }
+
+/* Add form laid out in a row. */
+.add-form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.add-form input, .add-form select {
+  padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;
+}
+.add-btn {
+  background: #16a34a; color: #fff; border: none;
+  padding: 9px 18px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+.add-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* The list of category rows. */
+.list { display: flex; flex-direction: column; gap: 8px; }
+
+/* One category row (a card). */
+.cat-row {
+  display: flex;                          /* Row layout. */
+  align-items: center;                    /* Vertically centered. */
+  gap: 12px;                              /* Space between items. */
+  background: #fff;                       /* White card. */
+  padding: 12px 14px;                     /* Inner spacing. */
+  border-radius: 8px;                     /* Rounded. */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);  /* Subtle shadow. */
+  color: black;
+}
+
+/* The colored dot indicating type. */
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.dot.income  { background: #16a34a; }     /* Green. */
+.dot.expense { background: #dc2626; }     /* Red. */
+
+/* The category name takes the remaining space. */
+.cat-name { flex: 1; font-size: 15px; }
+
+/* The type label. */
+.cat-type { color: #6b7280; font-size: 13px; }
+
+/* Delete button. */
+.del-btn { background: transparent; border: none; color: #dc2626; cursor: pointer; font-size: 15px; }
+
+@media (max-width: 640px) {
+  .page { padding: 16px 14px; }
+  .page-title { font-size: 20px; }
+
+  .add-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-form input,
+  .add-form select,
+  .add-btn {
+    width: 100%;
+  }
+
+  .cat-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .cat-name,
+  .cat-type {
+    width: 100%;
+  }
+
+  .del-btn {
+    margin-left: auto;
+  }
+}

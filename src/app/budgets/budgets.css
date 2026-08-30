@@ -1,0 +1,79 @@
+/* Page container. */
+.page { padding: 24px; max-width: 720px; margin: 0 auto; margin-top: 5%; }
+.page-title { margin: 0 0 20px; font-size: 22px; }
+.muted { color: #6b7280; }
+
+/* Add form laid out in a wrapping row. */
+.add-form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.add-form input, .add-form select {
+  padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;
+}
+/* Keep the small number inputs from stretching too wide. */
+.add-form input[type="number"] { width: 110px; }
+.add-btn {
+  background: #16a34a; color: #fff; border: none;
+  padding: 9px 18px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+.add-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* The list of budget rows. */
+.list { display: flex; flex-direction: column; gap: 8px; }
+
+/* One budget row (a card). */
+.budget-row {
+  display: flex;                          /* Row layout. */
+  align-items: center;                    /* Vertically centered. */
+  gap: 12px;                              /* Space between items. */
+  background: #fff;                       /* White card. */
+  padding: 12px 14px;                     /* Inner spacing. */
+  border-radius: 8px;                     /* Rounded. */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);  /* Subtle shadow. */
+  color: black;
+}
+
+/* The category name takes the remaining space. */
+.b-cat { flex: 1; font-size: 15px; font-weight: 600; }
+
+/* The month/year label. */
+.b-period { color: #6b7280; font-size: 13px; }
+
+/* The limit amount. */
+.b-limit { color: #2563eb; font-weight: 600; }
+
+/* Delete button. */
+.del-btn { background: transparent; border: none; color: #dc2626; cursor: pointer; font-size: 15px; }
+
+@media (max-width: 640px) {
+  .page { padding: 16px 14px; }
+  .page-title { font-size: 20px; }
+
+  .add-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-form input,
+  .add-form select,
+  .add-btn {
+    width: 100%;
+  }
+
+  .add-form input[type="number"] {
+    width: 100%;
+  }
+
+  .budget-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .b-cat,
+  .b-period,
+  .b-limit {
+    width: 100%;
+  }
+
+  .del-btn {
+    margin-left: auto;
+  }
+}

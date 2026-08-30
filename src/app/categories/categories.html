@@ -1,0 +1,35 @@
+<!-- The shared top navigation bar. -->
+<app-nav></app-nav>
+
+<div class="page">
+  <!-- <h2 class="page-title">Categories</h2> -->
+
+  <!-- Form to add a new category. -->
+  <form class="add-form" (ngSubmit)="add()">
+    <!-- The category name. -->
+    <input name="name" type="text" [(ngModel)]="newItem.name" placeholder="Category name" required />
+    <!-- Income or Expense. -->
+    <select name="type" [(ngModel)]="newItem.type">
+      <option value="Expense">Expense</option>
+      <option value="Income">Income</option>
+    </select>
+    <!-- Add button, disabled while saving. Note: saving() reads the signal's value. -->
+    <button type="submit" class="add-btn" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Add' }}</button>
+  </form>
+
+  <!-- Loading and empty states. We call the signals as functions: loading(), items(). -->
+  <p *ngIf="loading()" class="muted">Loading categories...</p>
+  <p *ngIf="!loading() && items().length === 0" class="muted">No categories yet. Add one above.</p>
+
+  <!-- The list of categories as simple cards. -->
+  <div class="list" *ngIf="!loading()">
+    <div class="cat-row" *ngFor="let c of items()">
+      <!-- A colored dot showing income (green) or expense (red). -->
+      <span class="dot" [class.income]="c.type === 'Income'" [class.expense]="c.type === 'Expense'"></span>
+      <span class="cat-name">{{ c.name }}</span>
+      <span class="cat-type">{{ c.type }}</span>
+      <!-- Delete button on the right. -->
+      <button class="del-btn" (click)="remove(c.id)">✕</button>
+    </div>
+  </div>
+</div>

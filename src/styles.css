@@ -1,1 +1,157 @@
-/* You can add global styles to this file, and also import other style files */
+/* ---------------------------------------------------------------
+   Global styles applied to the whole app.
+   --------------------------------------------------------------- */
+
+/* Import Bootstrap 5 (already installed via package.json) for base styling helpers. */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Reset default margins and use a clean system font everywhere. */
+* { box-sizing: border-box; }
+
+:root {
+  --bg-color: #f3f4f6;
+  --surface-color: #ffffff;
+  --surface-alt: #f9fafb;
+  --primary-color: #4f46e5;
+  --primary-strong: #312e81;
+  --accent-color: #7c3aed;
+  --text-color: #111827;
+  --muted-color: #6b7280;
+  --card-shadow: rgba(15, 23, 42, 0.1);
+  --nav-bg: linear-gradient(135deg, #172554 0%, #1e3a8a 52%, #312e81 100%);
+  --nav-text: #d1d5db;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #2563eb;
+}
+
+:root[data-theme='midnight'] {
+  --bg-color: linear-gradient(135deg, rgba(15,23,42,0.56), rgba(30,64,175,0.4)), url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  --surface-color: rgba(15, 23, 42, 0.7);
+  --surface-alt: rgba(59, 130, 246, 0.18);
+  --primary-color: #60a5fa;
+  --primary-strong: #dbeafe;
+  --accent-color: #93c5fd;
+  --text-color: #e0f2fe;
+  --muted-color: #bae6fd;
+  --card-shadow: rgba(59, 130, 246, 0.2);
+  --nav-bg: linear-gradient(135deg, rgba(15,23,42,0.96) 0%, rgba(30,64,175,0.94) 55%, rgba(8,47,73,0.96) 100%);
+  --nav-text: #e2e8f0;
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #7dd3fc;
+}
+
+:root[data-theme='forest'] {
+  --bg-color: linear-gradient(135deg, rgba(25,61,52,0.5), rgba(67,122,103,0.34)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  --surface-color: rgba(239, 247, 241, 0.92);
+  --surface-alt: rgba(191, 224, 207, 0.48);
+  --primary-color: #3f7866;
+  --primary-strong: #245346;
+  --accent-color: #d07a5f;
+  --text-color: #203a34;
+  --muted-color: #617a70;
+  --card-shadow: rgba(25, 61, 52, 0.18);
+  --nav-bg: linear-gradient(135deg, rgba(25,61,52,0.98) 0%, rgba(63,120,102,0.96) 52%, rgba(22,78,99,0.98) 100%);
+  --nav-text: #e9f6ee;
+  --success: #3f7866;
+  --danger: #b95748;
+  --warning: #d07a5f;
+}
+
+:root[data-theme='ocean'] {
+  --bg-color: linear-gradient(135deg, rgba(8,47,73,0.54), rgba(14,116,144,0.4)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  --surface-color: rgba(15, 23, 42, 0.7);
+  --surface-alt: rgba(14, 116, 144, 0.25);
+  --primary-color: #38bdf8;
+  --primary-strong: #dbeafe;
+  --accent-color: #7dd3fc;
+  --text-color: #e0f2fe;
+  --muted-color: #bae6fd;
+  --card-shadow: rgba(14, 116, 144, 0.25);
+  --nav-bg: linear-gradient(135deg, rgba(8,47,73,0.97) 0%, rgba(14,116,144,0.95) 52%, rgba(30,64,175,0.96) 100%);
+  --nav-text: #e0f2fe;
+  --success: #34d399;
+  --danger: #f87171;
+  --warning: #7dd3fc;
+}
+
+:root[data-theme='sunset'] {
+  --bg-color: linear-gradient(135deg, rgba(120,53,15,0.5), rgba(251,146,60,0.4)), url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  --surface-color: rgba(120, 53, 15, 0.7);
+  --surface-alt: rgba(251, 146, 60, 0.18);
+  --primary-color: #fbbf24;
+  --primary-strong: #ffedd5;
+  --accent-color: #fcd34d;
+  --text-color: #fff7ed;
+  --muted-color: #fed7aa;
+  --card-shadow: rgba(146, 64, 14, 0.18);
+  --nav-bg: linear-gradient(135deg, rgba(124,45,18,0.97) 0%, rgba(194,65,12,0.95) 52%, rgba(190,24,93,0.96) 100%);
+  --nav-text: #ffedd5;
+  --success: #4ade80;
+  --danger: #f87171;
+  --warning: #fbbf24;
+}
+
+:root[data-theme='lavender'] {
+  --bg-color: linear-gradient(135deg, rgba(76,29,149,0.5), rgba(168,85,247,0.4)), url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  --surface-color: rgba(76, 29, 149, 0.7);
+  --surface-alt: rgba(168, 85, 247, 0.16);
+  --primary-color: #c4b5fd;
+  --primary-strong: #f5f3ff;
+  --accent-color: #ddd6fe;
+  --text-color: #f5f3ff;
+  --muted-color: #e9d5ff;
+  --card-shadow: rgba(91, 33, 182, 0.18);
+  --nav-bg: linear-gradient(135deg, rgba(76,29,149,0.97) 0%, rgba(126,34,206,0.95) 52%, rgba(30,64,175,0.96) 100%);
+  --nav-text: #f3e8ff;
+  --success: #4ade80;
+  --danger: #fca5a5;
+  --warning: #c4b5fd;
+}
+
+html, body {
+  margin: 0;                                  /* Remove the default page margin. */
+  padding: 0;                                 /* Remove default padding. */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Clean, native fonts. */
+  background: var(--bg-color);                 /* A light grey page background. */
+  color: var(--text-color);                   /* Dark text for good contrast. */
+  min-width: 320px;                            /* Keep layouts readable on very small screens. */
+  min-height: 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+/* Make links use the app's purple accent by default. */
+a { color: var(--primary-color); }
+
+/* Main page content spacing to account for the sidebar on larger screens. */
+.page {
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+
+@media (min-width: 768px) {
+  .page { margin-left: var(--sidebar-width, 0); }
+}
+
+@media (max-width: 767px) {
+  /* Keep page content readable below the mobile top bar */
+  .page { margin-left: 0; padding-top: 76px; }
+}
+
+@media (min-width: 768px) {
+  /* Keep page content readable below the desktop top bar */
+  .page { margin-top: 56px; }
+}
