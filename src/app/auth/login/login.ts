@@ -20,13 +20,21 @@ export class Login {                                  // The login page componen
 
   constructor(private auth: Auth, private router: Router) {} // Receive Auth + Router (dependency injection).
 
+  showToast(message: string): void {
+    this.errorMessage = message;
+    window.clearTimeout((this as any).toastTimer);
+    (this as any).toastTimer = window.setTimeout(() => {
+      this.errorMessage = '';
+    }, 3000);
+  }
+
   // Called when the user submits the login form.
   onSubmit(): void {                                  // The submit handler.
     const trimmedEmail = this.email.trim();
     const trimmedPassword = this.secretValue.trim();
 
     if (!trimmedEmail || !trimmedPassword) {
-      this.errorMessage = 'Please enter both email and password.';
+      this.showToast('Please enter both email and password.');
       return;
     }
 
@@ -36,11 +44,12 @@ export class Login {                                  // The login page componen
     this.auth.login(trimmedEmail, trimmedPassword).subscribe({ // Ask the auth service to log in.
       next: () => {                                    // Runs when login succeeds.
         this.loading = false;                          // Done working.
+        this.errorMessage = '';                        // Clear any toast.
         this.router.navigate(['dashboard']);           // Go to the dashboard.
       },
       error: (err: Error) => {                         // Runs when login fails.
         this.loading = false;                          // Done working.
-        this.errorMessage = err.message || 'Invalid email or password.';
+        this.showToast(err.message || 'Invalid email or password.');
       }
     });
   }
