@@ -3,6 +3,7 @@
     {
       "route": "/api/*",
       "allowedRoles": [],
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "rewrite": "https://financetrackerwebapi-g0cmdxgga7hzevf9.australiaeast-01.azurewebsites.net/api/*"
     }
   ],
@@ -11,5 +12,15 @@
     "exclude": [
       "*.{css,js,png,jpg,jpeg,gif,svg,ico,json,webp,woff,woff2,ttf,eot,map}"
     ]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".wasm": "application/wasm"
   }
 }
