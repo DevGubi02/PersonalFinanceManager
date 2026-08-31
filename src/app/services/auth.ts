@@ -43,21 +43,43 @@ export class Auth {                                  // The service that handles
   }
 
   private mapAuthError(error: unknown): Observable<never> {
+    console.error('Auth error:', error);  // Log for debugging
+    
     if (error instanceof TimeoutError) {
-      return throwError(() => new Error('The server is taking too long to respond. Please try again.'));
+      const msg = 'The server is taking too long to respond. Please try again.';
+      console.warn('Timeout error:', msg);
+      return throwError(() => new Error(msg));
     }
 
     if (error instanceof HttpErrorResponse) {
+      console.error('HTTP error status:', error.status, 'body:', error.error);
+      
       if (error.status === 401 || error.status === 400) {
-        return throwError(() => new Error('Invalid email or password.'));
+        // Try to get a more specific error message from the response
+        const errorBody = error.error;
+        if (typeof errorBody === 'string') {
+          return throwError(() => new Error(errorBody));
+        }
+        if (errorBody?.message) {
+          return throwError(() => new Error(errorBody.message));
+        }
+        return throwError(() => new Error('Invalid email or password. Please check your credentials and try again.'));
       }
 
       if (error.status === 0) {
-        return throwError(() => new Error('Unable to reach the server. Please check your connection and try again.'));
+        const msg = 'Unable to reach the server. Please check your connection and try again.';
+        return throwError(() => new Error(msg));
+      }
+
+      if (error.status === 500) {
+        const msg = 'Server error. Please try again later.';
+        return throwError(() => new Error(msg));
       }
     }
 
-    return throwError(() => new Error('Something went wrong. Please try again.'));
+    const msg = 'Something went wrong. Please try again.';
+    console.error('Unknown error:', msg, error);
+    return throwError(() => new Error(msg));
   }
 
   // Save the token and name so the user stays logged in between page reloads.

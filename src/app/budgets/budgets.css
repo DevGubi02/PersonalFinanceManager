@@ -1,18 +1,18 @@
 /* Page container. */
-.page { padding: 24px; max-width: 720px; margin: 0 auto; margin-top: 5%; }
+.page { padding: 24px; max-width: 720px; margin: 0 auto; padding-top: 80px; }
 .page-title { margin: 0 0 20px; font-size: 22px; }
 .muted { color: #6b7280; }
 
 /* Add form laid out in a wrapping row. */
 .add-form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
 .add-form input, .add-form select {
-  padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;
+  padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; min-height: 40px;
 }
 /* Keep the small number inputs from stretching too wide. */
 .add-form input[type="number"] { width: 110px; }
 .add-btn {
   background: #16a34a; color: #fff; border: none;
-  padding: 9px 18px; border-radius: 6px; cursor: pointer; font-size: 14px;
+  padding: 10px 18px; border-radius: 6px; cursor: pointer; font-size: 14px; min-height: 40px; font-weight: 600;
 }
 .add-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
@@ -44,18 +44,21 @@
 .del-btn { background: transparent; border: none; color: #dc2626; cursor: pointer; font-size: 15px; }
 
 @media (max-width: 640px) {
-  .page { padding: 16px 14px; }
+  .page { padding: 16px 14px; padding-top: 80px; }
   .page-title { font-size: 20px; }
 
   .add-form {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
 
   .add-form input,
   .add-form select,
   .add-btn {
     width: 100%;
+    padding: 12px; 
+    font-size: 16px;
   }
 
   .add-form input[type="number"] {
@@ -65,15 +68,22 @@
   .budget-row {
     flex-wrap: wrap;
     align-items: flex-start;
+    padding: 14px 12px;
   }
 
-  .b-cat,
+  .b-cat {
+    width: 100%;
+    font-size: 16px;
+  }
+
   .b-period,
   .b-limit {
-    width: 100%;
+    width: 48%;
+    font-size: 14px;
   }
 
   .del-btn {
     margin-left: auto;
+    width: auto;
   }
 }

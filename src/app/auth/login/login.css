@@ -50,20 +50,28 @@
   border-radius: 8px;                    /* Rounded corners. */
   font-size: 14px;                       /* Readable text size. */
   box-sizing: border-box;                /* Include padding in the width. */
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.field-input:disabled {
+  opacity: 0.6;                          /* Fade out disabled inputs. */
+  background-color: #f3f4f6;             /* Light grey background for disabled. */
+  cursor: not-allowed;                   /* Show "not allowed" cursor. */
 }
 
 /* The main action button. */
 .primary-btn {
   width: 100%;                           /* Full width. */
   margin-top: 20px;                      /* Space above. */
-  padding: 12px;                         /* Tall, easy-to-tap button. */
+  padding: 14px;                         /* Tall, easy-to-tap button. */
   background: #4f46e5;                   /* Purple background. */
   color: #ffffff;                        /* White text. */
   border: none;                          /* No border. */
   border-radius: 8px;                    /* Rounded corners. */
-  font-size: 15px;                       /* Slightly larger text. */
+  font-size: 16px;                       /* Slightly larger text. */
   font-weight: 600;                      /* Semi-bold. */
   cursor: pointer;                       /* Show a hand cursor on hover. */
+  min-height: 48px;                      /* Touch-friendly size. */
 }
 
 /* Dim the button when it is disabled (while loading). */
@@ -72,17 +80,55 @@
   cursor: not-allowed;                   /* Show a "blocked" cursor. */
 }
 
+@media (max-width: 480px) {
+  .auth-card { padding: 24px; }
+  .auth-title { font-size: 22px; }
+  .auth-subtitle { font-size: 13px; }
+  .field-input { padding: 12px; font-size: 16px; }
+  .primary-btn { font-size: 16px; padding: 14px; }
+}
+
 .toast {
-  margin-top: 12px;
-  padding: 10px 12px;
+  margin-top: 16px;
+  padding: 14px 14px;
   border-radius: 10px;
   background: #fee2e2;
   color: #991b1b;
-  border: 1px solid #fecaca;
-  font-size: 13px;
+  border: 2px solid #fecaca;
+  font-size: 14px;
   font-weight: 600;
-  box-shadow: 0 10px 20px rgba(153, 27, 27, 0.12);
+  box-shadow: 0 10px 20px rgba(153, 27, 27, 0.15);
   animation: toastIn 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.error-toast {
+  background: #fecaca;
+  border-color: #f87171;
+  color: #7f1d1d;
+  box-shadow: 0 4px 12px rgba(153, 27, 27, 0.2);
+}
+
+.toast-close {
+  background: transparent;
+  border: none;
+  color: #991b1b;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.error-toast .toast-close {
+  color: #7f1d1d;
+}
+
+.toast-close:hover {
+  opacity: 0.7;
 }
 
 @keyframes toastIn {
@@ -93,6 +139,14 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .toast {
+    padding: 12px 12px;
+    font-size: 13px;
+    margin-top: 12px;
   }
 }
 

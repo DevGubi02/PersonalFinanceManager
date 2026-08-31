@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://financetrackerwebapi-g0cmdxgga7hzevf9.australiaeast-01.azurewebsites.net",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

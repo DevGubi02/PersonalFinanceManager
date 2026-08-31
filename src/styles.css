@@ -111,15 +111,11 @@
 }
 
 html, body {
-  margin: 0;                                  /* Remove the default page margin. */
-  padding: 0;                                 /* Remove default padding. */
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Clean, native fonts. */
-  background: var(--bg-color);                 /* A light grey page background. */
-  color: var(--text-color);                   /* Dark text for good contrast. */
-  min-width: 320px;                            /* Keep layouts readable on very small screens. */
-  min-height: 100%;
+  margin: 0;                                  /* Remove the default page margin. */\n  padding: 0;                                 /* Remove default padding. */\n  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* Clean, native fonts. */\n  background: var(--bg-color);                 /* A light grey page background. */\n  color: var(--text-color);                   /* Dark text for good contrast. */\n  min-width: 320px;                            /* Keep layouts readable on very small screens. */\n  min-height: 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;        /* Smoother text on mobile. */
+  -webkit-touch-callout: none;                /* Disable iOS callout. */
 }
 
 body {
@@ -127,10 +123,22 @@ body {
   background: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
+  overflow-x: hidden;                         /* Prevent horizontal scroll. */
 }
 
 button, input, select {
   font: inherit;
+  -webkit-appearance: none;                   /* Remove iOS default styling. */
+  -moz-appearance: none;                      /* Remove Firefox default styling. */
+  appearance: none;
+}
+
+/* Touch-friendly input sizing */
+@media (max-width: 768px) {
+  button, input, select, textarea {
+    font-size: 16px;                          /* Prevents iOS auto-zoom on input focus. */
+    min-height: 44px;                         /* Apple's recommended touch target size. */
+  }
 }
 
 /* Make links use the app's purple accent by default. */

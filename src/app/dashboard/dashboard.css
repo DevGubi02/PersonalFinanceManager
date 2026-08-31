@@ -1,5 +1,5 @@
 /* Page container with padding and a light background. */
-.page { padding: 24px; max-width: 900px; margin: 0 auto; }
+.page { padding: 24px; max-width: 900px; margin: 0 auto; padding-top: 80px; }
 
 /* Grey helper text (loading / empty states). */
 .muted { color: #6b7280; }
@@ -20,7 +20,6 @@
   flex-direction: column;                          /* Vertical direction. */
   gap: 6px;                                         /* Space between label and value. */
   color: #fff;  
-  margin-top: 20%;                                   /* White text. */
 }
 
 /* The small label at the top of a card. */
@@ -66,9 +65,22 @@
 .bar-fill.expense { background: #dc2626; }         /* Red fill for expense. */
 
 @media (max-width: 720px) {
-  .page { padding: 16px 14px; }
+  .page { padding: 16px 14px; padding-top: 80px; }
   .cards { grid-template-columns: 1fr; }
   .bar-head { flex-wrap: wrap; }
+  .card { padding: 16px; }
+  .card-value { font-size: 18px; }
+  .section-title { font-size: 16px; }
 }
 
-.margin-top-10 { margin-top: 10%; }
+@media (max-width: 480px) {
+  .page { padding: 12px 12px; padding-top: 80px; }
+  .cards { gap: 12px; margin-bottom: 20px; }
+  .card { padding: 14px; }
+  .card-label { font-size: 12px; }
+  .card-value { font-size: 16px; }
+  .bar-row { margin-bottom: 12px; }
+  .bar-head { font-size: 13px; margin-bottom: 3px; }
+}
+
+.margin-top-10 { margin-top: 0; }
