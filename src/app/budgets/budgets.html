@@ -5,27 +5,38 @@
   <!-- <h2 class="page-title">Budgets</h2> -->
 
   <!-- Form to add a new monthly budget. -->
-  <form class="add-form" (ngSubmit)="add()">
-    <!-- Category dropdown. -->
-    <select name="category" [(ngModel)]="newItem.categoryId" required>
-      <option [ngValue]="0" disabled>Choose category</option>
-      <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }}</option>
-    </select>
+  <form class="add-form" (ngSubmit)="add()" novalidate>
+    <div class="field-group">
+      <label for="budget-category">Category</label>
+      <select id="budget-category" name="category" [(ngModel)]="newItem.categoryId" required>
+        <option [ngValue]="0" disabled>Choose category</option>
+        <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+    </div>
 
-    <!-- The monthly limit amount. -->
-    <input name="limit" type="number" min="0" step="0.01"
-           [(ngModel)]="newItem.monthlyLimit" placeholder="Monthly limit" required />
+    <div class="field-group">
+      <label for="budget-limit">Monthly Limit</label>
+      <input id="budget-limit" name="limit" type="number" min="0" step="0.01"
+             [(ngModel)]="newItem.monthlyLimit" placeholder="Monthly limit" required />
+    </div>
 
-    <!-- Month (1-12). -->
-    <input name="month" type="number" min="1" max="12"
-           [(ngModel)]="newItem.month" placeholder="Month" required />
+    <div class="field-group">
+      <label for="budget-month">Month</label>
+      <input id="budget-month" name="month" type="number" min="1" max="12"
+             [(ngModel)]="newItem.month" placeholder="Month" required />
+    </div>
 
-    <!-- Year. -->
-    <input name="year" type="number" min="2000" max="2100"
-           [(ngModel)]="newItem.year" placeholder="Year" required />
+    <div class="field-group">
+      <label for="budget-year">Year</label>
+      <input id="budget-year" name="year" type="number" min="2000" max="2100"
+             [(ngModel)]="newItem.year" placeholder="Year" required />
+    </div>
 
     <!-- Add button, disabled while saving. -->
-    <button type="submit" class="add-btn" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Add' }}</button>
+    <div class="field-group">
+      <label for="budget-submit">Action</label>
+      <button id="budget-submit" type="submit" class="add-btn" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Add' }}</button>
+    </div>
   </form>
 
   <!-- Loading and empty states. -->

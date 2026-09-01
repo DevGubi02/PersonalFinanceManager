@@ -5,16 +5,25 @@
   <!-- <h2 class="page-title">Categories</h2> -->
 
   <!-- Form to add a new category. -->
-  <form class="add-form" (ngSubmit)="add()">
-    <!-- The category name. -->
-    <input name="name" type="text" [(ngModel)]="newItem.name" placeholder="Category name" required />
-    <!-- Income or Expense. -->
-    <select name="type" [(ngModel)]="newItem.type">
-      <option value="Expense">Expense</option>
-      <option value="Income">Income</option>
-    </select>
+  <form class="add-form" (ngSubmit)="add()" novalidate>
+    <div class="field-group">
+      <label for="category-name">Category Name</label>
+      <input id="category-name" name="name" type="text" [(ngModel)]="newItem.name" placeholder="Category name" required />
+    </div>
+
+    <div class="field-group">
+      <label for="category-type">Type</label>
+      <select id="category-type" name="type" [(ngModel)]="newItem.type">
+        <option value="Expense">Expense</option>
+        <option value="Income">Income</option>
+      </select>
+    </div>
+
     <!-- Add button, disabled while saving. Note: saving() reads the signal's value. -->
-    <button type="submit" class="add-btn" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Add' }}</button>
+    <div class="field-group action-group">
+      <label class="sr-only" for="category-submit">Action</label>
+      <button id="category-submit" type="submit" class="add-btn" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Add' }}</button>
+    </div>
   </form>
 
   <!-- Loading and empty states. We call the signals as functions: loading(), items(). -->

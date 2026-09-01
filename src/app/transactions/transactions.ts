@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';        // [(ngModel)] two-way bind
 import { Nav } from '../shared/nav/nav';             // The top navigation bar.
 import { Api } from '../services/api';               // Our API service.
 import { Transaction, Category } from '../models/models'; // Data shapes.
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'app-transactions',                      // The HTML tag <app-transactions>.
@@ -27,7 +28,7 @@ export class Transactions implements OnInit {        // The transactions page co
   loading() { return this.loadingSignal(); }
   saving() { return this.savingSignal(); }
 
-  constructor(private api: Api) {}                   // Receive the API service (dependency injection).
+  constructor(private api: Api, private toast: ToastService) {} // Receive the API service and toast helper.
 
   ngOnInit(): void {                                 // Runs once when the page loads.
     this.loadCategories();                           // Load categories for the dropdown.
@@ -50,6 +51,14 @@ export class Transactions implements OnInit {        // The transactions page co
     this.api.getCategories().subscribe(cats => this.categoriesSignal.set(cats)); // Save the categories when they arrive.
   }
 
+  // Keep the type in sync with the selected category.
+  onCategoryChange(): void {
+    const selectedCategory = this.categoriesSignal().find(c => c.id === this.newItem.categoryId);
+    if (selectedCategory) {
+      this.newItem.type = selectedCategory.type;
+    }
+  }
+
   // Load the user's transactions from the API.
   loadTransactions(): void {                         // The transaction-loading method.
     this.loadingSignal.set(true);                    // Show loading.
@@ -66,7 +75,11 @@ export class Transactions implements OnInit {        // The transactions page co
 
   // Save the new transaction from the form.
   add(): void {                                      // The add method.
-    if (!this.newItem.categoryId || this.newItem.amount <= 0) return; // Require a category and a positive amount.
+    if (!this.newItem.categoryId || !this.newItem.type || this.newItem.amount <= 0 || !this.newItem.date) {
+      this.toast.show('Please fill in category, type, amount and date.');
+      return; // Require category, type, positive amount, and date; note is optional.
+    }
+
     this.savingSignal.set(true);                      // Show saving.
     this.api.createTransaction(this.newItem).subscribe({ // Ask the API to create it.
       next: () => {                                   // Runs on success.

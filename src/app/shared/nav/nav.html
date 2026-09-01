@@ -1,3 +1,7 @@
+<div class="global-toast" *ngIf="toast.message()" role="alert" aria-live="assertive">
+  {{ toast.message() }}
+</div>
+
 <!-- Mobile top bar (visible only on small screens) -->
 <div class="mobile-top" role="banner">
   <button class="mobile-hamburger" type="button" (click)="toggleMenu()" aria-label="Open menu">☰</button>
@@ -107,6 +111,7 @@
     <a routerLink="/transactions" routerLinkActive="active" (click)="closeMenu()">Transactions</a>
     <a routerLink="/categories" routerLinkActive="active" (click)="closeMenu()">Categories</a>
     <a routerLink="/budgets" routerLinkActive="active" (click)="closeMenu()">Budgets</a>
+    <a routerLink="/reports" routerLinkActive="active" (click)="closeMenu()">Reports</a>
   </nav>
 
   <!-- Sidebar footer intentionally left minimal; profile actions moved to profile dropdown -->

@@ -6,6 +6,7 @@ import { Dashboard } from './dashboard/dashboard';          // The dashboard (ch
 import { Transactions } from './transactions/transactions'; // The transactions page.
 import { Categories } from './categories/categories';       // The categories page.
 import { Budgets } from './budgets/budgets';                // The budgets page.
+import { Reports } from './reports/reports';                // The reports page.
 import { authGuard } from './services/auth-guard';          // Blocks pages when not logged in.
 
 // The list of pages in our app and which URL shows each one.
@@ -16,5 +17,6 @@ export const routes: Routes = [                                            // Th
   { path: 'transactions', component: Transactions, canActivate: [authGuard] }, // "/transactions" (login required).
   { path: 'categories', component: Categories, canActivate: [authGuard] }, // "/categories" (login required).
   { path: 'budgets', component: Budgets, canActivate: [authGuard] },       // "/budgets" (login required).
+  { path: 'reports', component: Reports, canActivate: [authGuard] },       // "/reports" (login required).
   { path: '**', redirectTo: '' }                                           // Any unknown URL -> back to login.
 ];

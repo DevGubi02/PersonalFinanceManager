@@ -65,4 +65,10 @@ export class Api {                                     // The service that talks
     if (end) query += `${query ? '&' : '?'}end=${end}`;            // Add the end date if one was given.
     return this.http.get<DashboardSummary>(`${this.base}/dashboard/summary${query}`); // GET the summary.
   }
+
+  // ---------------- REPORTS ----------------
+
+  getReport(fromDate: string, toDate: string): Observable<Transaction[]> {         // Get report data for date range.
+    return this.http.get<Transaction[]>(`${this.base}/report?fromDate=${fromDate}&toDate=${toDate}`); // GET /api/report.
+  }
 }

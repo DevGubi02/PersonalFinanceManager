@@ -4,6 +4,7 @@ import { Component, computed, signal, ElementRef, OnDestroy, effect } from '@ang
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { AppTheme, ThemeService } from '../../services/theme';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-nav',
@@ -26,6 +27,7 @@ export class Nav implements OnDestroy {
     if (path.startsWith('/transactions')) return 'Transactions';
     if (path.startsWith('/categories')) return 'Categories';
     if (path.startsWith('/budgets')) return 'Budgets';
+    if (path.startsWith('/reports')) return 'Reports';
     if (path === '' || path === '/') return 'Home';
     // Fallback: show the last path segment capitalized.
     const seg = path.split('/').filter(Boolean).pop() ?? '';
@@ -41,7 +43,13 @@ export class Nav implements OnDestroy {
     }
   };
 
-  constructor(public auth: Auth, private router: Router, public themeService: ThemeService, private host: ElementRef) {
+  constructor(
+    public auth: Auth,
+    private router: Router,
+    public themeService: ThemeService,
+    private host: ElementRef,
+    public toast: ToastService
+  ) {
     effect(() => {
       if (this.profileOpen()) {
         document.addEventListener('click', this._docClick, true);

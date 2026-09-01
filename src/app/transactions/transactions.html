@@ -5,41 +5,54 @@
   <!-- <h2 class="page-title">Transactions</h2> -->
 
   <!-- The "add new transaction" form. (ngSubmit) runs add(). -->
-  <form class="add-form" (ngSubmit)="add()">
-    <!-- Category dropdown, filled from the categories list. -->
-    <select name="category" [(ngModel)]="newItem.categoryId" required>
-      <option [ngValue]="0" disabled>Choose category</option>
-      <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }} ({{ c.type }})</option>
-    </select>
+  <form class="add-form" (ngSubmit)="add()" novalidate>
+    <div class="field-group">
+      <label for="category">Category</label>
+      <select id="category" name="category" [(ngModel)]="newItem.categoryId" (ngModelChange)="onCategoryChange()" required>
+        <option [ngValue]="0" disabled>Choose category</option>
+        <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }} ({{ c.type }})</option>
+      </select>
+    </div>
 
-    <!-- Type dropdown: Income or Expense. -->
-    <select name="type" [(ngModel)]="newItem.type">
-      <option value="Expense">Expense</option>
-      <option value="Income">Income</option>
-    </select>
+    <div class="field-group" hidden>
+      <label for="type">Type</label>
+      <select id="type" name="type" [(ngModel)]="newItem.type">
+        <option value="Expense">Expense</option>
+        <option value="Income">Income</option>
+      </select>
+    </div>
 
-    <!-- Amount input (numbers only). -->
-    <input name="amount" type="number" min="0" step="0.01"
-           [(ngModel)]="newItem.amount" placeholder="Amount" required />
+    <div class="field-group">
+      <label for="amount">Amount</label>
+      <input id="amount" name="amount" type="number" min="0" step="0.01"
+             [(ngModel)]="newItem.amount" placeholder="Amount" required />
+    </div>
 
-    <!-- Date input. -->
-    <input name="date" type="date" [(ngModel)]="newItem.date" required />
+    <div class="field-group">
+      <label for="date">Date</label>
+      <input id="date" name="date" type="date" [(ngModel)]="newItem.date" required />
+    </div>
 
-    <!-- Optional description. -->
-    <input name="desc" type="text" [(ngModel)]="newItem.description" placeholder="Note (optional)" />
+    <div class="field-group">
+      <label for="description">Note</label>
+      <input id="description" name="desc" type="text" [(ngModel)]="newItem.description" placeholder="Note (optional)" />
+    </div>
 
     <!-- Submit button, disabled while saving. -->
-    <button type="submit" class="add-btn" [disabled]="saving()">
-      {{ saving() ? 'Saving...' : 'Add' }}
-    </button>
+    <div class="field-group action-group">
+      <label class="sr-only" for="submit-btn">Action</label>
+      <button id="submit-btn" type="submit" class="add-btn" [disabled]="saving()">
+        {{ saving() ? 'Saving...' : 'Add' }}
+      </button>
+    </div>
   </form>
 
   <!-- A button to export the list to CSV. -->
-  <div class="toolbar">
+  <!-- <div class="toolbar">
     <button class="export-btn" (click)="exportCsv()" [disabled]="items().length === 0">
       ⬇ Export CSV
     </button>
-  </div>
+  </div> -->
 
   <!-- Loading and empty states. -->
   <p *ngIf="loading()" class="muted">Loading transactions...</p>

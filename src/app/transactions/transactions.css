@@ -1,5 +1,18 @@
 /* Page container. */
-.page { padding: 24px; max-width: 1000px; margin: 0 auto; padding-top: 80px; }
+.page {
+  padding: 2rem;
+  padding-top: 80px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .page {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    padding-left: 5rem;
+  }
+}
+
 .page-title { margin: 0 0 20px; font-size: 22px; }
 .muted { color: #6b7280; }
 
@@ -7,9 +20,35 @@
 .add-form {
   display: flex;                          /* Row layout. */
   flex-wrap: wrap;                        /* Wrap on small screens. */
-  gap: 10px;                              /* Space between fields. */
-  align-items: center;                    /* Align vertically. */
+  gap: 12px;                              /* Space between fields. */
+  align-items: flex-end;                  /* Align labels and inputs neatly. */
   margin-bottom: 16px;                    /* Space below. */
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 140px;
+  flex: 1 1 150px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: black;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Inputs and selects in the form share a look. */
@@ -19,6 +58,13 @@
   border-radius: 6px;                     /* Rounded. */
   font-size: 14px;                        /* Readable. */
   min-height: 40px;                       /* Touch-friendly size. */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.action-group {
+  min-width: 110px;
+  flex: 0 0 auto;
 }
 
 /* The green "Add" button. */
@@ -78,6 +124,12 @@
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+  }
+
+  .field-group,
+  .action-group {
+    min-width: 100%;
+    flex: 1 1 auto;
   }
 
   .add-form input,

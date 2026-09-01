@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';        // [(ngModel)] two-way bind
 import { Nav } from '../shared/nav/nav';             // The top navigation bar.
 import { Api } from '../services/api';               // Our API service.
 import { Category } from '../models/models';         // The Category data shape.
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'app-categories',                        // The HTML tag <app-categories>.
@@ -22,7 +23,7 @@ export class Categories implements OnInit {          // The categories page comp
 
   newItem: Category = { name: '', type: 'Expense' }; // The "new category" form model (bound with ngModel).
 
-  constructor(private api: Api) {}                   // Receive the API service (dependency injection).
+  constructor(private api: Api, private toast: ToastService) {} // Receive the API service and toast helper.
 
   ngOnInit(): void { this.load(); }                  // Load categories when the page opens.
 
@@ -42,7 +43,11 @@ export class Categories implements OnInit {          // The categories page comp
 
   // Add a new category from the form.
   add(): void {                                      // The add method.
-    if (!this.newItem.name.trim()) return;           // Do nothing if the name is empty.
+    if (!this.newItem.name.trim()) {
+      this.toast.show('Please enter a category name.');
+      return; // Require a category name.
+    }
+
     this.saving.set(true);                           // Show saving (updates the UI immediately).
     this.api.createCategory(this.newItem).subscribe({ // Ask the API to create it.
       next: () => {                                   // Runs on success.

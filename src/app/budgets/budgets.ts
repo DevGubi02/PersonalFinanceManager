@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';        // [(ngModel)] two-way bind
 import { Nav } from '../shared/nav/nav';             // The top navigation bar.
 import { Api } from '../services/api';               // Our API service.
 import { Budget, Category } from '../models/models'; // Data shapes.
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'app-budgets',                           // The HTML tag <app-budgets>.
@@ -27,7 +28,7 @@ export class Budgets implements OnInit {             // The budgets page compone
   loading() { return this.loadingSignal(); }
   saving() { return this.savingSignal(); }
 
-  constructor(private api: Api) {}                   // Receive the API service (dependency injection).
+  constructor(private api: Api, private toast: ToastService) {} // Receive the API service and toast helper.
 
   ngOnInit(): void {                                 // Runs once when the page opens.
     this.loadCategories();                           // Load categories for the dropdown + name lookup.
@@ -72,7 +73,11 @@ export class Budgets implements OnInit {             // The budgets page compone
 
   // Add a new budget from the form.
   add(): void {                                      // The add method.
-    if (!this.newItem.categoryId || this.newItem.monthlyLimit <= 0) return; // Require a category and positive limit.
+    if (!this.newItem.categoryId || this.newItem.monthlyLimit <= 0 || !this.newItem.month || !this.newItem.year) {
+      this.toast.show('Please fill in category, limit, month and year.');
+      return; // Require category, positive limit, month, and year.
+    }
+
     this.savingSignal.set(true);                      // Show saving.
     this.api.createBudget(this.newItem).subscribe({  // Ask the API to create it.
       next: () => {                                   // Runs on success.
