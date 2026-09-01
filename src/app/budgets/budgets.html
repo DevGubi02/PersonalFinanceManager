@@ -51,7 +51,7 @@
       <!-- The month/year. -->
       <span class="b-period">{{ b.month }}/{{ b.year }}</span>
       <!-- The limit amount. -->
-      <span class="b-limit">{{ b.monthlyLimit | currency:'INR':'symbol':'1.2-2' }}</span>
+      <span class="b-limit">{{ b.monthlyLimit | appCurrency }}</span>
       <!-- Delete button. -->
       <button class="del-btn" (click)="remove(b.id)">✕</button>
     </div>

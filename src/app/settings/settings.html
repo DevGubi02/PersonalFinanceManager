@@ -1,0 +1,58 @@
+<app-nav></app-nav>
+
+<main class="page settings-page">
+  <!-- <section class="settings-header">
+    <p class="eyebrow">Preferences</p>
+    <h1>Settings</h1>
+    <p class="intro">Choose the country and currency symbol used throughout your finance manager.</p>
+  </section> -->
+
+  <section class="settings-panel" aria-labelledby="currency-heading">
+    <div>
+      <p class="eyebrow">Display currency</p>
+      <h2 id="currency-heading">Currency format</h2>
+      <p class="muted">Your choice is saved on this device and applies to dashboards, transactions, budgets, and reports.</p>
+    </div>
+
+    <div class="currency-form">
+      <label for="country">Country</label>
+      <select id="country" [formControl]="countryControl" (change)="selectCountry()">
+        @for (currency of currencyService.currencies(); track currency.country) {
+          <option [value]="currency.country">{{ currency.country }}</option>
+        }
+      </select>
+    </div>
+
+    @if (currencyService.selectedCurrency(); as currency) {
+      <div class="currency-preview" aria-live="polite">
+        <span class="preview-label">Current symbol</span>
+        <span class="preview-symbol">{{ currency.symbol }}</span>
+        <span class="preview-details">{{ currency.currencyName }} · {{ currency.isoCode }}</span>
+        <span class="preview-example">Example: {{ currencyService.format(12345.67) }}</span>
+      </div>
+    }
+  </section>
+
+  <section class="settings-panel profile-settings" aria-labelledby="profile-heading">
+    <div>
+      <p class="eyebrow">Profile</p>
+      <h2 id="profile-heading">Profile picture</h2>
+      <p class="muted">Choose the picture shown in the navigation profile button.</p>
+    </div>
+
+    <div class="profile-picture-settings">
+      @if (profilePictureService.picture(); as picture) {
+        <img class="settings-avatar" [src]="picture" alt="Current profile picture" />
+      } @else {
+        <div class="settings-avatar avatar-placeholder" aria-hidden="true">?</div>
+      }
+      <div class="profile-picture-actions">
+        <label class="profile-picture-action" for="settings-profile-picture">Update profile picture</label>
+        <input id="settings-profile-picture" class="profile-picture-input" type="file" accept="image/*" (change)="profilePictureService.select($event)" />
+        @if (profilePictureService.picture()) {
+          <button class="profile-picture-remove" type="button" (click)="profilePictureService.remove()">Remove picture</button>
+        }
+      </div>
+    </div>
+  </section>
+</main>

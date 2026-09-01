@@ -14,17 +14,17 @@
       <!-- Income card (green). -->
       <div class="card income">
         <span class="card-label">Total Income</span>
-        <span class="card-value">{{ summaryValue()?.totalIncome | currency:'INR':'symbol':'1.2-2' }}</span>
+        <span class="card-value">{{ summaryValue()?.totalIncome | appCurrency }}</span>
       </div>
       <!-- Expense card (red). -->
       <div class="card expense">
         <span class="card-label">Total Expense</span>
-        <span class="card-value">{{ summaryValue()?.totalExpense | currency:'INR':'symbol':'1.2-2' }}</span>
+        <span class="card-value">{{ summaryValue()?.totalExpense | appCurrency }}</span>
       </div>
       <!-- Balance card (blue). -->
       <div class="card balance">
         <span class="card-label">Balance</span>
-        <span class="card-value">{{ summaryValue()?.balance | currency:'INR':'symbol':'1.2-2' }}</span>
+        <span class="card-value">{{ summaryValue()?.balance | appCurrency }}</span>
       </div>
     </div>
 
@@ -40,14 +40,22 @@
     <div class="bar-row" *ngFor="let item of summaryValue()?.byCategory">
       <!-- The category name and its total. -->
       <div class="bar-head">
-        <span>{{ item.categoryName }} <small class="tag">{{ item.type }}</small></span>
-        <span>{{ item.total | currency:'INR':'symbol':'1.2-2' }}</span>
+        <div>
+          <span>{{ item.categoryName }} <small class="tag">{{ item.type }}</small></span>
+          <!-- Budget status if available -->
+          <div *ngIf="item.budgetLimit" class="budget-status" [class.over]="budgetStatus(item).over">
+            <span class="budget-info">Budget: {{ item.budgetLimit | appCurrency }} 
+            <span [class.over-text]="budgetStatus(item).over">{{ budgetStatus(item).status }}</span></span>
+          </div>
+        </div>
+        <span>{{ item.total | appCurrency }}</span>
       </div>
       <!-- The bar track (grey) and the colored fill sized by barWidth(). -->
       <div class="bar-track">
         <div class="bar-fill"
              [class.income]="item.type === 'Income'"
              [class.expense]="item.type === 'Expense'"
+             [class.over-budget]="budgetStatus(item).over"
              [style.width.%]="barWidth(item)"></div>
       </div>
     </div>

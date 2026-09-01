@@ -1,6 +1,13 @@
 // This file defines the "shapes" of the data our app sends to and receives from the API.
 // TypeScript interfaces describe what fields exist, which helps catch mistakes early.
 
+export interface CurrencyOption {
+  country: string;
+  currencyName: string;
+  symbol: string;
+  isoCode: string;
+}
+
 // The response returned by the API after a successful login or registration.
 export interface AuthResponse {
   token: string;      // The signed JWT token we store and send on every request.
@@ -43,6 +50,7 @@ export interface CategorySummary {
   categoryName: string;        // The category name.
   type: 'Income' | 'Expense';  // Income or expense.
   total: number;               // The total money for this category.
+  budgetLimit?: number;        // Optional budget limit for this category (this month).
 }
 
 // The overall dashboard summary shown at the top of the page and in the charts.

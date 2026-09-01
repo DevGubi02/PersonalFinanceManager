@@ -6,11 +6,12 @@ import { Nav } from '../shared/nav/nav';             // The top navigation bar.
 import { Api } from '../services/api';               // Our API service.
 import { Budget, Category } from '../models/models'; // Data shapes.
 import { ToastService } from '../services/toast';
+import { AppCurrencyPipe } from '../shared/currency.pipe';
 
 @Component({
   selector: 'app-budgets',                           // The HTML tag <app-budgets>.
   standalone: true,                                  // Manages its own imports.
-  imports: [CommonModule, FormsModule, Nav],         // Directives + forms + nav bar.
+  imports: [CommonModule, FormsModule, Nav, AppCurrencyPipe], // Directives + forms + nav bar + currency.
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './budgets.html',                     // The HTML layout.
   styleUrl: './budgets.css'                          // The styles.

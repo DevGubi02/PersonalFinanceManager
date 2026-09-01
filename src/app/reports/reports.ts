@@ -6,11 +6,12 @@ import { Nav } from '../shared/nav/nav';             // The top navigation bar.
 import { Api } from '../services/api';               // Our API service.
 import { Transaction } from '../models/models';      // Data shapes.
 import * as XLSX from 'xlsx';                        // Excel export library.
+import { AppCurrencyPipe } from '../shared/currency.pipe';
 
 @Component({
   selector: 'app-reports',                           // The HTML tag <app-reports>.
   standalone: true,                                  // Manages its own imports.
-  imports: [CommonModule, FormsModule, Nav],         // Directives + forms + nav bar.
+  imports: [CommonModule, FormsModule, Nav, AppCurrencyPipe], // Directives + forms + nav + currency.
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './reports.html',                     // The HTML layout.
   styleUrl: './reports.css'                          // The styles.

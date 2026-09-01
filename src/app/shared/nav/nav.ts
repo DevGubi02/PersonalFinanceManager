@@ -5,6 +5,7 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { AppTheme, ThemeService } from '../../services/theme';
 import { ToastService } from '../../services/toast';
+import { ProfilePictureService } from '../../services/profile-picture';
 
 @Component({
   selector: 'app-nav',
@@ -28,6 +29,7 @@ export class Nav implements OnDestroy {
     if (path.startsWith('/categories')) return 'Categories';
     if (path.startsWith('/budgets')) return 'Budgets';
     if (path.startsWith('/reports')) return 'Reports';
+    if (path.startsWith('/settings')) return 'Settings';
     if (path === '' || path === '/') return 'Home';
     // Fallback: show the last path segment capitalized.
     const seg = path.split('/').filter(Boolean).pop() ?? '';
@@ -48,7 +50,8 @@ export class Nav implements OnDestroy {
     private router: Router,
     public themeService: ThemeService,
     private host: ElementRef,
-    public toast: ToastService
+    public toast: ToastService,
+    public profilePictureService: ProfilePictureService
   ) {
     effect(() => {
       if (this.profileOpen()) {

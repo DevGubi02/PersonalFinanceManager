@@ -79,7 +79,7 @@
                 </span>
               </td>
               <td class="amount-cell" [ngClass]="transaction.type === 'Income' ? 'income-amount' : 'expense-amount'">
-                {{ transaction.amount | currency }}
+                {{ transaction.amount | appCurrency }}
               </td>
               <td class="description-cell">{{ transaction.description || '-' }}</td>
             </tr>
