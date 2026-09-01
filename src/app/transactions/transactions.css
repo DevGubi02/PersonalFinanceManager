@@ -1,7 +1,7 @@
 /* Page container. */
 .page {
   padding: 2rem;
-  padding-top: 80px;
+  padding-top: 30px;
   box-sizing: border-box;
 }
 
@@ -9,7 +9,7 @@
   .page {
     margin-left: var(--sidebar-width);
     width: calc(100% - var(--sidebar-width));
-    padding-left: 5rem;
+    padding-left: 10rem;
   }
 }
 
