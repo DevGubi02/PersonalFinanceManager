@@ -1,4 +1,3 @@
-/* Sidebar layout: fixed on larger screens, off-canvas on small screens. */
 :root { --sidebar-width: 260px; }
 
 .sidebar {
@@ -36,7 +35,6 @@
   display: none;
 }
 
-/* Mobile top bar */
 .mobile-top {
   display: none;
 }
@@ -181,19 +179,12 @@
   z-index: 1;
 }
 
-.swatch-grid.full-size .theme-swatch.active {
-  border-color: rgba(255,255,255,0.5);
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.14);
-  transform: translateY(-1px);
-}
-
 .swatch-grid.full-size .swatch-label {
   font-size: 16px;
   color: #fff;
   text-shadow: 0 1px 2px rgba(0,0,0,0.25);
 }
 
-/* Swatch grid for theme selection */
 .swatch-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -220,7 +211,6 @@
 .swatch-label { font-size: 13px; color: var(--nav-text); font-weight:600; }
 .theme-swatch.active { outline: 2px solid rgba(255,255,255,0.12); }
 
-/* Individual swatch colors */
 .sw-light {
   background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(191,219,254,0.75), rgba(216,180,254,0.8)), url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80') center/cover no-repeat;
   border: 1px solid rgba(148, 163, 184, 0.7);
@@ -241,7 +231,6 @@
   background: linear-gradient(135deg, rgba(76,29,149,0.7), rgba(168,85,247,0.64)), url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=500&q=80') center/cover no-repeat;
 }
 
-/* Hover and active states */
 .theme-swatch:hover {
   background: rgba(255,255,255,0.03);
   transform: translateY(-1px);
@@ -251,12 +240,8 @@
   border-color: rgba(255,255,255,0.12);
 }
 
-.theme-option { padding: 8px 10px; border-radius: 8px; background: var(--surface-alt); border: 1px solid rgba(0,0,0,0.04); }
-.theme-option.active { font-weight: 600; }
-
 .logout-btn { background: var(--accent-color); color: #fff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
 
-/* Desktop topbar: shows current page title and profile area */
 .global-toast {
   position: fixed;
   top: 72px;
@@ -363,19 +348,15 @@
 }
 
 
-/* Mobile / small screens: sidebar becomes off-canvas */
 @media (max-width: 767px) {
-  /* The desktop bar is fixed too, so hide it while the mobile bar is active. */
   .topbar-desktop { display: none; }
 
-  /* Off-canvas modal style */
   .sidebar {
     transform: translateX(-110%);
     transition: transform 220ms ease;
     width: calc(100% - 48px);
     max-width: 320px;
     left: 12px;
-    /* Start below the mobile top bar instead of covering it. */
     top: 72px;
     height: calc(100vh - 84px);
     border-radius: 12px;
@@ -383,8 +364,6 @@
   }
 
   .sidebar.open { transform: translateX(0); }
-
-  /* Show a mobile top bar with a hamburger to open the sidebar */
 
   .mobile-top {
     display: flex;
@@ -401,14 +380,13 @@
     border-radius: 10px;
     z-index: 120;
     box-shadow: 0 6px 20px rgba(2,6,23,0.12);
-    justify-content: center; /* center the title */
+    justify-content: center;
   }
 
   .mobile-brand { position: absolute; left: 50%; transform: translateX(-50%); font-weight: 700; color: var(--nav-text, #fff); }
   .mobile-hamburger { position: absolute; left: 18px; display: inline-block; }
   .mobile-profile-btn { position: absolute; right: 18px; background: transparent; border: none; color: var(--nav-text, #fff); font-size: 18px; }
 
-  /* Ensure profile controls are circular and have theme-specific contrast */
   .profile-btn, .mobile-profile-btn {
     width: 32px;
     height: 32px;
@@ -429,7 +407,6 @@
     height: 16px;
   }
 
-  /* Theme-specific overrides: force icon color per user's preference */
   :root[data-theme='forest'] .profile-btn,
   :root[data-theme='forest'] .mobile-profile-btn,
   :root[data-theme='forest'] .profile-icon,
@@ -456,7 +433,6 @@
     border: 1px solid rgba(0,0,0,0.06);
   }
 
-  /* Ensure profile icon in sidebar also uses theme-aware color */
   .profile-icon,
   .mobile-profile-btn,
   .topbar-profile .profile-btn {
@@ -496,15 +472,12 @@
     right: 0;
     bottom: 0;
     background: rgba(0,0,0,0.4);
-    /* Keep the backdrop behind the open sidebar so its links remain tappable. */
     z-index: 50;
   }
 
-  /* Make links a bit larger to be finger-friendly. */
   .sidebar-links a { font-size: 16px; padding: 10px 12px; }
 }
 
-/* Profile dropdowns should match the nav color and ensure inner controls contrast */
 .topbar-profile .profile-dropdown .theme-popup,
 .mobile-profile-dropdown .theme-popup {
   background: transparent;
@@ -534,7 +507,6 @@
   margin: 8px 0;
 }
 
-/* Modern dropdown items */
 .profile-dropdown .user-name-box { display:flex; align-items:center; gap:10px; padding:6px 4px; }
 .profile-dropdown .user-name { font-weight:700; font-size:15px; }
 .profile-dropdown .menu-link,
@@ -563,18 +535,14 @@
 .profile-dropdown .theme-menu-btn { width:100%; }
 .profile-dropdown .logout-btn { width:100%; margin-top:6px; }
 
-/* dropdown caret */
 .profile-dropdown::before { content: ''; position: absolute; right: 20px; top: -6px; width: 12px; height: 12px; transform: rotate(45deg); background: var(--nav-bg); border-left: 1px solid rgba(0,0,0,0.06); border-top: 1px solid rgba(0,0,0,0.06); }
 
 @media (min-width: 768px) {
   .topbar-desktop { display: flex; }
-  /* Hide the mobile bar on desktop */
   .mobile-top { display: none; }
-  /* Keep sidebar aligned beneath the top bar and clearly separated from it */
   .sidebar { top: 56px; height: calc(100vh - 56px); }
 }
 
-/* Desktop: ensure page content leaves room for the sidebar */
 @media (min-width: 768px) {
   body { --sidebar-width: 220px; }
 }
