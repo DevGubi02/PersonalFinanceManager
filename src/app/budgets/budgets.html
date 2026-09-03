@@ -8,7 +8,7 @@
   <form class="add-form" (ngSubmit)="add()" novalidate>
     <div class="field-group">
       <label for="budget-category">Category</label>
-      <select id="budget-category" name="category" [(ngModel)]="newItem.categoryId" required>
+      <select id="budget-category" name="category" [class.invalid-field]="validationAttempted && !newItem.categoryId" [(ngModel)]="newItem.categoryId" required>
         <option [ngValue]="0" disabled>Choose category</option>
         <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }}</option>
       </select>
@@ -16,19 +16,19 @@
 
     <div class="field-group">
       <label for="budget-limit">Monthly Limit</label>
-      <input id="budget-limit" name="limit" type="number" min="0" step="0.01"
+      <input id="budget-limit" name="limit" [class.invalid-field]="validationAttempted && newItem.monthlyLimit <= 0" type="number" min="0" step="0.01"
              [(ngModel)]="newItem.monthlyLimit" placeholder="Monthly limit" required />
     </div>
 
     <div class="field-group">
       <label for="budget-month">Month</label>
-      <input id="budget-month" name="month" type="number" min="1" max="12"
+      <input id="budget-month" name="month" [class.invalid-field]="validationAttempted && (newItem.month < 1 || newItem.month > 12)" type="number" min="1" max="12"
              [(ngModel)]="newItem.month" placeholder="Month" required />
     </div>
 
     <div class="field-group">
       <label for="budget-year">Year</label>
-      <input id="budget-year" name="year" type="number" min="2000" max="2100"
+      <input id="budget-year" name="year" [class.invalid-field]="validationAttempted && (newItem.year < 2000 || newItem.year > 2100)" type="number" min="2000" max="2100"
              [(ngModel)]="newItem.year" placeholder="Year" required />
     </div>
 

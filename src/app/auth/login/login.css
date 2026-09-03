@@ -59,6 +59,17 @@
   cursor: not-allowed;                   /* Show "not allowed" cursor. */
 }
 
+.invalid-field {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.18);
+}
+
+.field-error {
+  margin: 4px 0 0;
+  color: #b91c1c;
+  font-size: 12px;
+}
+
 /* The main action button. */
 .primary-btn {
   width: 100%;                           /* Full width. */

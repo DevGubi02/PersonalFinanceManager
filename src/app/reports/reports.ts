@@ -7,6 +7,7 @@ import { Api } from '../services/api';               // Our API service.
 import { Transaction } from '../models/models';      // Data shapes.
 import * as XLSX from 'xlsx';                        // Excel export library.
 import { AppCurrencyPipe } from '../shared/currency.pipe';
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'app-reports',                           // The HTML tag <app-reports>.
@@ -24,6 +25,7 @@ export class Reports implements OnInit {             // The reports page compone
   // Filter signals
   startDate = signal<string>('');                    // Start date filter.
   endDate = signal<string>('');                      // End date filter.
+  validationAttempted = false;
 
   // Computed filtered transactions.
   filteredTransactions = () => {
@@ -35,7 +37,7 @@ export class Reports implements OnInit {             // The reports page compone
   loading() { return this.loadingSignal(); }
   exporting() { return this.exportingSignal(); }
 
-  constructor(private api: Api) {}                  // Receive the API service (dependency injection).
+  constructor(private api: Api, private toast: ToastService) {} // Receive API and shared error toast.
 
   ngOnInit(): void {                                 // Runs once when the page loads.
     this.setDefaultDateRange();                      // Set default date range to current month.
@@ -57,6 +59,7 @@ export class Reports implements OnInit {             // The reports page compone
 
   // Search for transactions using the selected date range.
   searchTransactions(): void {
+    this.validationAttempted = true;
     this.loadTransactions();
   }
 
@@ -65,7 +68,14 @@ export class Reports implements OnInit {             // The reports page compone
     const startDate = this.startDate();              // Get the start date.
     const endDate = this.endDate();                  // Get the end date.
 
-    if (!startDate || !endDate) return;              // Require both dates.
+    if (!startDate || !endDate) {
+      this.toast.show('Please select both start and end dates.');
+      return;
+    }
+    if (startDate > endDate) {
+      this.toast.show('Start date cannot be after end date.');
+      return;
+    }
 
     this.loadingSignal.set(true);                    // Show loading.
     this.api.getReport(startDate, endDate).subscribe({ // Call the report API with date range.
@@ -77,6 +87,7 @@ export class Reports implements OnInit {             // The reports page compone
       },
       error: () => {                                  // Runs if the request fails.
         this.loadingSignal.set(false);                // Stop loading on error.
+        this.toast.show('Could not load the report. Please try again.');
       }
     });
   }
@@ -94,7 +105,7 @@ export class Reports implements OnInit {             // The reports page compone
   exportToExcel(): void {                            // The export method.
     const data = this.filteredTransactions();        // Get the filtered data.
     if (data.length === 0) {
-      alert('No data to export. Please adjust your filters.');
+      this.toast.show('No data to export. Please adjust your filters.');
       return;
     }
 
@@ -143,7 +154,7 @@ export class Reports implements OnInit {             // The reports page compone
       this.exportingSignal.set(false);                // Done exporting.
     } catch (error) {
       console.error('Export failed:', error);
-      alert('Failed to export to Excel. Please try again.');
+      this.toast.show('Failed to export to Excel. Please try again.');
       this.exportingSignal.set(false);                // Stop exporting on error.
     }
   }

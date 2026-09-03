@@ -8,7 +8,7 @@
   <form class="add-form" (ngSubmit)="add()" novalidate>
     <div class="field-group">
       <label for="category-name">Category Name</label>
-      <input id="category-name" name="name" type="text" [(ngModel)]="newItem.name" placeholder="Category name" required />
+      <input id="category-name" name="name" type="text" [class.invalid-field]="validationAttempted && !newItem.name.trim()" [(ngModel)]="newItem.name" placeholder="Category name" required />
     </div>
 
     <div class="field-group">

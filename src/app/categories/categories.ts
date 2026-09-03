@@ -22,6 +22,7 @@ export class Categories implements OnInit {          // The categories page comp
   saving = signal<boolean>(false);                   // True while saving (a signal).
 
   newItem: Category = { name: '', type: 'Expense' }; // The "new category" form model (bound with ngModel).
+  validationAttempted = false;
 
   constructor(private api: Api, private toast: ToastService) {} // Receive the API service and toast helper.
 
@@ -37,12 +38,14 @@ export class Categories implements OnInit {          // The categories page comp
       },
       error: () => {                                  // Runs if the request fails.
         this.loading.set(false);                      // Stop loading on error.
+        this.toast.show('Could not load categories. Please try again.');
       }
     });
   }
 
   // Add a new category from the form.
   add(): void {                                      // The add method.
+    this.validationAttempted = true;
     if (!this.newItem.name.trim()) {
       this.toast.show('Please enter a category name.');
       return; // Require a category name.
@@ -57,6 +60,7 @@ export class Categories implements OnInit {          // The categories page comp
       },
       error: () => {                                  // Runs on failure.
         this.saving.set(false);                       // Stop saving on error.
+        this.toast.show('Could not save the category. Please try again.');
       }
     });
   }
@@ -65,6 +69,9 @@ export class Categories implements OnInit {          // The categories page comp
   remove(id?: number): void {                        // The delete method.
     if (!id) return;                                 // Need an id to delete.
     if (!confirm('Delete this category?')) return;   // Ask for confirmation.
-    this.api.deleteCategory(id).subscribe(() => this.load()); // Delete then refresh.
+    this.api.deleteCategory(id).subscribe({
+      next: () => this.load(),
+      error: () => this.toast.show('Could not delete the category. Please try again.')
+    }); // Delete then refresh.
   }
 }

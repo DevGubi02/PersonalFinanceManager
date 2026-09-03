@@ -9,19 +9,14 @@
     <form (ngSubmit)="onSubmit()" novalidate>
       <!-- Email input box, bound to the "email" field with [(ngModel)]. -->
       <label class="field-label">Email</label>
-      <input class="field-input" type="email" name="email" autocomplete="email"
-             [(ngModel)]="email" required placeholder="you@example.com" [disabled]="loading" />
+      <input class="field-input" [class.invalid-field]="validationAttempted && !!emailError" type="email" name="email" autocomplete="email"
+              [(ngModel)]="email" required placeholder="you@example.com" [disabled]="loading"
+              (blur)="validateEmail()" [attr.aria-invalid]="emailError ? 'true' : null" />
 
       <!-- Secret input box, bound to the "secretValue" field. type="password" hides the text. -->
       <label class="field-label">Password</label>
-      <input class="field-input" type="password" name="secret" autocomplete="current-password"
+      <input class="field-input" [class.invalid-field]="validationAttempted && !secretValue" type="password" name="secret" autocomplete="current-password"
              [(ngModel)]="secretValue" required placeholder="Your password" [disabled]="loading" />
-
-      <!-- Toast-like alert for login errors. -->
-      <div class="toast error-toast" *ngIf="errorMessage" role="alert" aria-live="assertive" aria-label="Login error">
-        <span>{{ errorMessage }}</span>
-        <button class="toast-close" type="button" (click)="errorMessage = ''" aria-label="Dismiss error">✕</button>
-      </div>
 
       <!-- The submit button. It is disabled while loading to prevent double clicks. -->
       <button class="primary-btn" type="submit" [disabled]="loading">

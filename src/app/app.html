@@ -1,5 +1,9 @@
 <router-outlet></router-outlet>
 
+<div class="global-toast" *ngIf="toast.message()" role="alert" aria-live="assertive">
+	{{ toast.message() }}
+</div>
+
 <footer class="app-footer">
 	<small>© 2026 Gubendiran G. All rights reserved.</small>
 </footer>

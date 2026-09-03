@@ -24,6 +24,8 @@
 .auth-title { margin: 0 0 4px; font-size: 24px; text-align: center; }
 .auth-subtitle { margin: 0 0 24px; color: #6b7280; text-align: center; font-size: 14px; }
 .field-label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 4px; color: #374151; }
+.field-error { margin: 4px 0 0; color: #b91c1c; font-size: 12px; }
+.invalid-field { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.18); }
 .field-input {
   width: 100%; padding: 10px 12px; border: 1px solid #d1d5db;
   border-radius: 8px; font-size: 14px; box-sizing: border-box;

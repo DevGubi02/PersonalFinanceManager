@@ -6,6 +6,7 @@ import { Nav } from '../shared/nav/nav';             // The top navigation bar.
 import { Api } from '../services/api';               // Our API service.
 import { DashboardSummary, CategorySummary, Budget } from '../models/models'; // Data shapes.
 import { AppCurrencyPipe } from '../shared/currency.pipe';
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'app-dashboard',                         // The HTML tag <app-dashboard>.
@@ -31,7 +32,7 @@ export class Dashboard implements OnInit, OnDestroy {           // The dashboard
 
   private navSub: Subscription | null = null;
 
-  constructor(private api: Api, private router: Router) {}    // Receive the API service + Router.
+  constructor(private api: Api, private router: Router, private toast: ToastService) {} // Receive API, router, and error toast.
 
   ngOnInit(): void {                                          // Runs automatically once when the page appears.
     this.loadSummary();                                       // Load the dashboard data immediately.
@@ -59,6 +60,7 @@ export class Dashboard implements OnInit, OnDestroy {           // The dashboard
       error: (err) => {                               // Runs if the request fails.
         console.error('[Dashboard] summary error', err);
         this.loadingSignal.set(false);                         // Stop loading even on error.
+        this.toast.show('Could not load the dashboard. Please try again.');
       }
     });
   }
@@ -89,6 +91,7 @@ export class Dashboard implements OnInit, OnDestroy {           // The dashboard
       },
       error: (err) => {                               // If budgets fail to load.
         console.error('[Dashboard] budgets error', err);
+        this.toast.show('Could not load dashboard budgets. Please try again.');
         // Continue without budgets; don't block the summary.
       }
     });

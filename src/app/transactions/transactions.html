@@ -8,7 +8,7 @@
   <form class="add-form" (ngSubmit)="add()" novalidate>
     <div class="field-group">
       <label for="category">Category</label>
-      <select id="category" name="category" [(ngModel)]="newItem.categoryId" (ngModelChange)="onCategoryChange()" required>
+      <select id="category" name="category" [class.invalid-field]="validationAttempted && !newItem.categoryId" [(ngModel)]="newItem.categoryId" (ngModelChange)="onCategoryChange()" required>
         <option [ngValue]="0" disabled>Choose category</option>
         <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }} ({{ c.type }})</option>
       </select>
@@ -24,13 +24,13 @@
 
     <div class="field-group">
       <label for="amount">Amount</label>
-      <input id="amount" name="amount" type="number" min="0" step="0.01"
+      <input id="amount" name="amount" [class.invalid-field]="validationAttempted && newItem.amount <= 0" type="number" min="0" step="0.01"
              [(ngModel)]="newItem.amount" placeholder="Amount" required />
     </div>
 
     <div class="field-group">
       <label for="date">Date</label>
-      <input id="date" name="date" type="date" [(ngModel)]="newItem.date" required />
+      <input id="date" name="date" [class.invalid-field]="validationAttempted && !newItem.date" type="date" [(ngModel)]="newItem.date" required />
     </div>
 
     <div class="field-group">

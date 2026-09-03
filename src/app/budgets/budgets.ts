@@ -20,6 +20,7 @@ export class Budgets implements OnInit {             // The budgets page compone
   private itemsSignal = signal<Budget[]>([]);        // Signal for budgets list.
   private categoriesSignal = signal<Category[]>([]); // Signal for categories.
   newItem: Budget = this.blankItem();                // The "new budget" form model.
+  validationAttempted = false;
   private loadingSignal = signal<boolean>(true);     // Loading state signal.
   private savingSignal = signal<boolean>(false);     // Saving state signal.
 
@@ -62,6 +63,7 @@ export class Budgets implements OnInit {             // The budgets page compone
       },
       error: () => {                                  // Runs if the request fails.
         this.loadingSignal.set(false);                // Stop loading on error.
+        this.toast.show('Could not load budgets. Please try again.');
       }
     });
   }
@@ -74,6 +76,7 @@ export class Budgets implements OnInit {             // The budgets page compone
 
   // Add a new budget from the form.
   add(): void {                                      // The add method.
+    this.validationAttempted = true;
     if (!this.newItem.categoryId || this.newItem.monthlyLimit <= 0 || !this.newItem.month || !this.newItem.year) {
       this.toast.show('Please fill in category, limit, month and year.');
       return; // Require category, positive limit, month, and year.
@@ -88,6 +91,7 @@ export class Budgets implements OnInit {             // The budgets page compone
       },
       error: () => {                                  // Runs on failure.
         this.savingSignal.set(false);                 // Stop saving on error.
+        this.toast.show('Could not save the budget. Please try again.');
       }
     });
   }
@@ -96,6 +100,9 @@ export class Budgets implements OnInit {             // The budgets page compone
   remove(id?: number): void {                        // The delete method.
     if (!id) return;                                 // Need an id.
     if (!confirm('Delete this budget?')) return;     // Confirm first.
-    this.api.deleteBudget(id).subscribe(() => this.load()); // Delete then refresh.
+    this.api.deleteBudget(id).subscribe({
+      next: () => this.load(),
+      error: () => this.toast.show('Could not delete the budget. Please try again.')
+    }); // Delete then refresh.
   }
 }

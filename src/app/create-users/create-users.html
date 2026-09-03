@@ -9,21 +9,19 @@
     <form (ngSubmit)="onSubmit()">
       <!-- Full name input, bound to "fullName". -->
       <label class="field-label">Full Name</label>
-      <input class="field-input" type="text" name="fullName"
+      <input class="field-input" [class.invalid-field]="validationAttempted && !fullName.trim()" type="text" name="fullName"
              [(ngModel)]="fullName" required placeholder="Your name" />
 
       <!-- Email input, bound to "email". -->
       <label class="field-label">Email</label>
-      <input class="field-input" type="email" name="email"
-             [(ngModel)]="email" required placeholder="you@example.com" />
+      <input class="field-input" [class.invalid-field]="validationAttempted && !!emailError" type="email" name="email"
+              [(ngModel)]="email" required placeholder="you@example.com"
+              (blur)="validateEmail()" [attr.aria-invalid]="emailError ? 'true' : null" />
 
       <!-- Secret input, bound to "secretValue". type="password" hides the characters. -->
       <label class="field-label">Password</label>
-      <input class="field-input" type="password" name="secret"
+      <input class="field-input" [class.invalid-field]="validationAttempted && secretValue.length < 8" type="password" name="secret"
              [(ngModel)]="secretValue" required placeholder="At least 8 characters" />
-
-      <!-- Show an error message only if one exists. -->
-      <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
 
       <!-- Submit button, disabled while loading. -->
       <button class="primary-btn" type="submit" [disabled]="loading">

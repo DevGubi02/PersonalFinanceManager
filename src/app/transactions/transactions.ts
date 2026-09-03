@@ -20,6 +20,7 @@ export class Transactions implements OnInit {        // The transactions page co
   private itemsSignal = signal<Transaction[]>([]);   // Signal for transactions list.
   private categoriesSignal = signal<Category[]>([]); // Signal for categories dropdown.
   newItem: Transaction = this.blankItem();           // The "new transaction" form model.
+  validationAttempted = false;
   private loadingSignal = signal<boolean>(true);     // Loading state signal.
   private savingSignal = signal<boolean>(false);     // Saving state signal.
 
@@ -70,12 +71,14 @@ export class Transactions implements OnInit {        // The transactions page co
       },
       error: () => {                                  // Runs if the request fails.
         this.loadingSignal.set(false);                // Stop loading on error.
+        this.toast.show('Could not load transactions. Please try again.');
       }
     });
   }
 
   // Save the new transaction from the form.
   add(): void {                                      // The add method.
+    this.validationAttempted = true;
     if (!this.newItem.categoryId || !this.newItem.type || this.newItem.amount <= 0 || !this.newItem.date) {
       this.toast.show('Please fill in category, type, amount and date.');
       return; // Require category, type, positive amount, and date; note is optional.
@@ -90,6 +93,7 @@ export class Transactions implements OnInit {        // The transactions page co
       },
       error: () => {                                  // Runs on failure.
         this.savingSignal.set(false);                 // Stop saving on error.
+        this.toast.show('Could not save the transaction. Please try again.');
       }
     });
   }
@@ -98,7 +102,10 @@ export class Transactions implements OnInit {        // The transactions page co
   remove(id?: number): void {                        // The delete method.
     if (!id) return;                                 // Nothing to delete without an id.
     if (!confirm('Delete this transaction?')) return; // Ask for confirmation.
-    this.api.deleteTransaction(id).subscribe(() => this.loadTransactions()); // Delete then refresh.
+    this.api.deleteTransaction(id).subscribe({
+      next: () => this.loadTransactions(),
+      error: () => this.toast.show('Could not delete the transaction. Please try again.')
+    }); // Delete then refresh.
   }
 
   // Export the current transactions to a CSV file the user can open in Excel.

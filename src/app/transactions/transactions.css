@@ -62,6 +62,8 @@
   box-sizing: border-box;
 }
 
+.add-form .invalid-field { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.18); }
+
 .action-group {
   min-width: 110px;
   flex: 0 0 auto;

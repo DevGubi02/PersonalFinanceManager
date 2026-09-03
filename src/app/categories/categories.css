@@ -48,6 +48,7 @@
 .add-form input, .add-form select {
   padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; min-height: 40px; width: 100%; box-sizing: border-box;
 }
+.add-form .invalid-field { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.18); }
 
 .action-group { min-width: 110px; flex: 0 0 auto; }
 

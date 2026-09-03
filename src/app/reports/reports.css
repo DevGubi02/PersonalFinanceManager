@@ -1,3 +1,4 @@
+.invalid-field { border-color: #dc2626 !important; box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.18); }
 .reports-container {
   padding: 2rem;
   max-width: 1400px;

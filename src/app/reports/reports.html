@@ -16,6 +16,7 @@
           type="date"
           id="startDate"
           class="form-control"
+          [class.invalid-field]="validationAttempted && (!startDate() || startDate() > endDate())"
           [(ngModel)]="startDate" />
       </div>
       <div class="filter-field">
@@ -24,6 +25,7 @@
           type="date"
           id="endDate"
           class="form-control"
+          [class.invalid-field]="validationAttempted && (!endDate() || startDate() > endDate())"
           [(ngModel)]="endDate" />
       </div>
       <div class="export-section">
